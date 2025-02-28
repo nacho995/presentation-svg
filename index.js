@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   const size = req.query.size || '40';
 
   // Genera el SVG con la animación personalizada
-  const svg = `<svg width="600" height="250" xmlns="http://www.w3.org/2000/svg">
+  const svg = `<svg width="600" height="150" xmlns="http://www.w3.org/2000/svg">
     <style>
       .text {
         font-size: ${size}px;
