@@ -4,20 +4,21 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  // Recoge parámetros de la query: lines, color y size
-  const linesParam = req.query.lines || 'Hola, soy Nacho;Full Stack Developer;Siempre aprendiendo';
-  // Separa las líneas usando ';'
+  const font = req.query.font || 'Oswald';
+  const linesParam = req.query.lines || "Hi, I'm Nacho;Junior programmer;Full Stack Developer;Always learning";
   const lines = linesParam.split(';');
-  const color = req.query.color || '#3133EE';
+  const height = req.query.height || '150'; // Altura por defecto si no se especifica
+  const color = req.query.color || '#ff0055';
   const size = req.query.size || '40';
 
   // Genera el SVG con la animación personalizada
-  const svg = `<svg width="600" height="150" xmlns="http://www.w3.org/2000/svg">
+  const svg = `<svg width="600" height="${height}" xmlns="http://www.w3.org/2000/svg">
     <style>
       .text {
         font-size: ${size}px;
         fill: ${color};
         text-anchor: middle;
+        font-family: ${font}, sans-serif;
       }
       .line {
         opacity: 0;
