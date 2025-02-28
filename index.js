@@ -10,6 +10,8 @@ app.get('/', (req, res) => {
   const height = req.query.height || '150'; // Altura por defecto si no se especifica
   const color = req.query.color || '#ff0055';
   const size = req.query.size || '40';
+  // Extrae el marginTop desde la query. Por defecto, -20 (se asume en px)
+  const marginTop = req.query.marginTop || '-20';
 
   // Genera el SVG con la animación personalizada
   const svg = `<svg width="600" height="${height}" xmlns="http://www.w3.org/2000/svg">
@@ -37,9 +39,12 @@ app.get('/', (req, res) => {
         100% { opacity: 0; }
       }
     </style>
-    ${lines.map((line, index) => 
-      `<text x="50%" y="50%" dy="${index * 1.2}em" class="text line">${line}</text>`
-    ).join('\n')}
+    <!-- Grupo con transform para aplicar margin-top -->
+    <g transform="translate(0, ${marginTop})">
+      ${lines.map((line, index) => 
+        `<text x="50%" y="50%" dy="${index * 1.2}em" class="text line">${line}</text>`
+      ).join('\n')}
+    </g>
   </svg>`;
 
   res.setHeader('Content-Type', 'image/svg+xml');
